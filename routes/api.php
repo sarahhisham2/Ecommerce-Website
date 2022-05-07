@@ -1,20 +1,24 @@
  <?php
 
-    use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 
-    Route::post('login', 'UserController@login');
-    Route::post('register', 'UserController@register');
-    Route::get('/products', 'ProductController@index');
-    Route::post('/upload-file', 'ProductController@uploadFile');
-    Route::get('/products/{product}', 'ProductController@show');
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Route;
 
-    Route::group(['middleware' => 'auth:api'], function(){
-        Route::get('/users','UserController@index');
-        Route::get('users/{user}','UserController@show');
-        Route::patch('users/{user}','UserController@update');
-        Route::get('users/{user}/orders','UserController@showOrders');
-        Route::patch('products/{product}/units/add','ProductController@updateUnits');
-        Route::patch('orders/{order}/deliver','OrderController@deliverOrder');
-        Route::resource('/orders', 'OrderController');
-        Route::resource('/products', 'ProductController')->except(['index','show']);
+    Route::post('login', [UserController::class, 'login']);
+    Route::post('register', [UserController::class,'register']);
+    Route::get('/products', [ProductController::class,'index']);
+    Route::post('/upload-file', [ProductController::class,'uploadFile']);
+    Route::get('/products/{product}', [ProductController::class,'show']);
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('/users', [UserController::class,'index']);
+        Route::get('users/{user}', [UserController::class,'show']);
+        Route::patch('users/{user}', [userController::class,'update']);
+        Route::get('users/{user}/orders', [userController::class,'showOrders']);
+        Route::patch('products/{product}/units/add', [ProductController::class,'updateUnits']);
+        Route::patch('orders/{order}/deliver', [OrderController::class,'deliverOrder']);
+        Route::resource('/orders', [OrderController::class]);
+        Route::resource('/products', [ProductController::class])->except(['index', 'show']);
     });
