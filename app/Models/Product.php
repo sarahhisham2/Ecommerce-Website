@@ -1,5 +1,7 @@
- <?php
+<?php     
     namespace App;
+
+ 
 
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,7 +14,8 @@
             'name', 'price', 'units', 'description', 'image'
         ];
 
-        public function orders(){
+        public function orders()
+        {
             return $this->hasMany(Order::class);
         }
     }

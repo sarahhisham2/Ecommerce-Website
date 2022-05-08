@@ -3,7 +3,7 @@
     namespace App\Http\Controllers;
 
     use Illuminate\Support\Facades\Auth;
-    use App\User;
+    use App\Models\User;
     use Illuminate\Support\Facades\Validator;
     use Illuminate\Http\Request;
 
@@ -22,8 +22,8 @@
             if (Auth::attempt($request->only(['email', 'password']))) {
                 $status = 200;
                 $response = [
-                    'user' => Auth::user(),
-                    'token' => Auth::user()->token_name];
+                    'user' => Auth::user()];//,
+                    //'token' => Auth::user()->token_name];
 
              
             }

@@ -1,6 +1,9 @@
  <?php
 
 use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 
     use Illuminate\Support\Facades\Auth;
@@ -19,6 +22,6 @@ use Illuminate\Http\Request;
         Route::get('users/{user}/orders', [userController::class,'showOrders']);
         Route::patch('products/{product}/units/add', [ProductController::class,'updateUnits']);
         Route::patch('orders/{order}/deliver', [OrderController::class,'deliverOrder']);
-        Route::resource('/orders', [OrderController::class]);
-        Route::resource('/products', [ProductController::class])->except(['index', 'show']);
+        Route::resource('/orders', OrderController::class);
+        Route::resource('/products', ProductController::class)->except(['index', 'show']);
     });
